@@ -1,13 +1,18 @@
-const text = document.getElementById("text");
-const delay = document.getElementById("delay");
-const btn = document.getElementById("btn");
-const output = document.getElementById("output");
+const textInput = document.getElementById("text");
+const delayInput = document.getElementById("delay");
+const outputDiv = document.getElementById("output");
 
-async function showMessage() {
-  const message = text.value;
-  const delayVal = delay.value * 1000; // Convert delay to milliseconds
-  await new Promise((resolve) => setTimeout(resolve, delayVal));
-  output.innerText = message;
+async function showMessageAfterDelay() {
+  const delay = parseInt(delayInput.value);
+  const message = textInput.value;
+
+  await new Promise((resolve, reject) => {
+    setTimeout(() => {
+      resolve(message);
+    }, delay * 1000);
+  });
+
+  outputDiv.innerHTML = message;
 }
 
-btn.addEventListener("click", showMessage);
+document.getElementById("btn").addEventListener("click", showMessageAfterDelay);
